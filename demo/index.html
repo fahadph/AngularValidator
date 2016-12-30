@@ -1,0 +1,197 @@
+<html ng-app="angular-validator-demo">
+    <head>
+        <title>Angular-Validator Demo</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <style>
+            h4 {
+                color: rgb(255, 128, 0);
+            }
+        </style>
+    </head>
+
+    <body ng-controller="DemoCtrl">
+        <div class="container">
+            <h1>Angular-Validator Demo</h1>
+
+            <hr>
+            <form angular-validator-submit="submitMyForm()" name="myForm" class="form-horizontal" novalidate angular-validator>
+                <h4>Choose when to validate:</h4>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">On dirty validation (phone Number) </label>
+                    <div class="col-sm-10">
+                        <input type="text"
+                        validate-on="dirty"
+                        class="form-control" ng-model="form.dirty"
+                        ng-pattern="/^[0-9]{10}$/"
+                        maxlength="10"
+                        invalid-message="'Invalid Phone Number'"
+                        required-message="'Phone Number field is required..'"
+                        required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">On blur validation ('regex' text)</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="blur"
+                        validate-on="blur" class="form-control"
+                        ng-model="form.blur"
+                        ng-pattern="/regex/"
+                        invalid-message="'You must enter the word `regex`'"
+                        required-message="'Yo! This field is required..'"
+                        required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">On submit validation</label>
+                    <div class="col-sm-10">
+                        <input type="text"
+                        name="sub" class="form-control"
+                        ng-model="form.sub"
+                        ng-pattern="/regex/"
+                        invalid-message="'You must enter the word `regex`'"
+                        required-message="'Yo! This field is required..'"
+                        required>
+                      </div>
+                </div>
+
+                <hr>
+                <h4>Different types of validation:</h4>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Custom validation Function</label>
+                    <div class="col-sm-10">
+                        <input type="text"
+                        name="firstName"
+                        class="form-control"
+                        ng-model="form.firstName"
+                        validator="myCustomValidator(form.firstName)"
+                        validate-on="dirty"
+                        required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email"
+                        name="emailAddress"
+                        class="form-control"
+                        ng-model="form.emailAddress"
+                        invalid-message="'Thats not a real email address'"
+                        required-message="'Yo this is required'"
+                        validate-on="dirty"
+                        required></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Regex</label>
+                    <div class="col-sm-10">
+                        <input type="text"
+                        name="regex" class="form-control"
+                        ng-model="form.regex" ng-pattern="/regex/" invalid-message="'You must enter the word `regex`'" required-message="'Yo! This field is required..'" validate-on="dirty" required></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Custom message Function</label>
+                    <div class="col-sm-10">
+                        <input type="text"
+                        name="myField"
+                        class="form-control"
+                        ng-model="form.myField"
+                        validator="anotherCustomValidator(form.myField) === true"
+                        invalid-message="anotherCustomValidator(form.myField)"
+                        validate-on="dirty"
+                        required>
+                    </div>
+                </div>
+                <hr>
+
+                <h4>Password validation and password matching example</h4>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password"
+                        name="password"
+                        class="form-control"
+                        ng-model="form.password"
+                        validator="passwordValidator(form.password) === true"
+                        invalid-message="passwordValidator(form.password)"
+                        validate-on="dirty"
+                        required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Confirm Password</label>
+                    <div class="col-sm-10">
+                        <input type="password"
+                        name="confirmPassword"
+                        class="form-control"
+                        ng-model="form.confirmPassword"
+                        validator="form.password === form.confirmPassword"
+                        validate-on="dirty"
+                        invalid-message="'Passwords do not match!'"
+                        required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-2 pull-right">
+                        <button type="button" ng-click="myForm.reset()" class="btn btn-primary">Reset</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+
+            <hr />
+            <br/>
+
+
+            <form angular-validator-submit="submitMyForm()" name="myForm2" class="form-horizontal" novalidate angular-validator>
+                <h4>Min length & Max length :</h4>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Min length & Max length with default message</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="lastName" class="form-control"
+                        validate-on="dirty" ng-model="form2.lastName"
+                        ng-maxlength="6"
+                        ng-minlength="2"
+                        required></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Min length && Max length </label>
+                    <div class="col-sm-9">
+                        <input type="text"
+                        name="firstName"
+                        class="form-control"
+                        validate-on="dirty"
+                        ng-model="form2.firstName"
+                        ng-maxlength="10"
+                        ng-minlength="5"
+                        maxlength-message="'Should be no longer than 10'"
+                        minlength-message="'Minimum 5 characters is required'"
+                        required>
+                    </div>
+                </div>
+                <hr />
+                <h4>Select Box :</h4>
+                 <div class="form-group">
+                    <label class="col-sm-3 control-label">Select Field</label>
+                     <div class="col-sm-9">
+                       <select ng-model='form2.select' class='form-control' name="select" required-message="'This field is required'" required>
+                         <option value='total'>Total Points</option>
+                         <option value='created'>Created</option>
+                         <option value='read'>Read</option>
+                         <option value='replied'>Replied</option>
+                       </select>
+                     </div>
+                 </div>
+                <div class="form-group">
+                    <div class="col-sm-2 pull-right">
+                        <button type="button" ng-click="myForm2.reset()" class="btn btn-primary ">Reset</button>
+                        <button type="submit" class="btn btn-primary btn-md">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
+        <script src="app.js"></script>
+        <script src="../dist/angular-validator.min.js"></script>
+    </body>
+</html>
