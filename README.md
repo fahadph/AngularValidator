@@ -126,6 +126,17 @@ Despite Angular's awesomeness, validation in Angular is still annoying. Surprisi
         validator = "myValidationFunction(person.firstName)">
 ```
 
+
+**Usage with a Select Box**
+```
+<select ng-model='form2.select' class='form-control' name="select" required-message="'This field is required'" required>
+  <option value='total'>Total Points</option>
+  <option value='created'>Created</option>
+  <option value='read'>Read</option>
+  <option value='replied'>Replied</option>
+</select>
+```
+
 ## Choose when to validate
 
 **Usage with validation on blur**
